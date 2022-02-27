@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace BinarySearchTree
 {
@@ -11,12 +11,18 @@ namespace BinarySearchTree
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Welcome to Binary Search Tree!");
-            //Creating an object of bst
-            //BinarySearchTree<int> bst = new BinarySearchTree<int>();
-            //bst.Insert(56);
-            //bst.Insert(30);
-            //bst.Insert(70);
-            //bst.DisplayBST(bst.root);
+            //creating an oject
+            BinarySearchTree<int> bst = new BinarySearchTree<int>();
+            //Inserting all the elements in the array
+            int[] arr = { 56, 30, 70, 22, 40, 11, 3, 16, 60, 95, 65, 63, 67 };
+            // iterating using for loop to add each element to the binary tree at a time
+            for (int i = 0; i < arr.Length; i++)
+            {
+                bst.Insert(arr[i]);
+            }
+            // Displaying the elements of the Binary Search Tree
+            bst.DisplayBST(bst.root);
+            Console.WriteLine("\n\nSize of Binary Search Tree: " + bst.Size(bst.root));
         }
     }
 }
