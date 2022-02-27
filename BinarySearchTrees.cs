@@ -6,25 +6,23 @@ namespace BinarySearchTree
 {
     class BinarySearchTree<T> where T : IComparable
     {
-        // Defining an Node root
+        // Defining a generic Node root
         public Node<T> root;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BinarySearchTree{T}"/> class.
         /// </summary>
-        // Default Constructor for the class BinarySearchTree    
+        // Default Constructor for the class BinarySearchTree     
         public BinarySearchTree()
         {
             this.root = null;
         }
 
-
         /// <summary>
         /// Inserts the specified data.
         /// </summary>
         /// <param name="data">The data.</param>
-        // UC - 1 Insert the element in the specified node depending upon the value passed by user as data  
+        //Insert the element in the specified node depending upon the value passed by user as data 
         public void Insert(T data)
         {
             Node<T> newNode = new Node<T>(data);
@@ -41,20 +39,20 @@ namespace BinarySearchTree
                 while (true)
                 {
                     parent = current;
-                    // If data is less than root data then passing it to left node
+                    // If Data is less than root data then passing it to left node
                     if (data.CompareTo(current.data) < 0)
                     {
-                       // current = current.Left;
+                        current = current.Left;
                         if (current == null)
                         {
                             parent.Left = newNode;
                             break;
                         }
                     }
-                    //If data is Greater than root data then passing it to right node
+                    //If Data is Greater than root data then passing it to right node
                     else
                     {
-                        //current = current.Right;
+                        current = current.Right;
                         if (current == null)
                         {
                             parent.Right = newNode;
@@ -68,8 +66,8 @@ namespace BinarySearchTree
         /// <summary>
         /// Displays the BST.
         /// </summary>
-        
-        // Displaying the Binary tree In the default in Order from left branch to node to right branch        
+        /// <param name="parent">The parent.</param>
+        // Displaying the Binary tree In the default in Order from left branch to node to right branch   
         public void DisplayBST(Node<T> parent)
         {
             Console.WriteLine("Parent : {0}", parent.data);
@@ -81,6 +79,71 @@ namespace BinarySearchTree
             {
                 Console.WriteLine("Right :" + parent.Right.data);
             }
+            if (parent.Left != null)
+            {
+                DisplayBST(parent.Left);
+            }
+            if (parent.Right != null)
+            {
+                DisplayBST(parent.Right);
+            }
+        }
+
+        /// <summary>
+        /// Sizes the specified node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns></returns>
+        // Method to Get the size of the Binary Search Tree        
+        public int Size(Node<T> node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+            else
+            {
+                // Adding the all the left node, all the right nodes and the root node 
+                return (Size(node.Left) + 1 + Size(node.Right));
+            }
+        }
+
+        /// <summary>
+        /// Searches the specified element.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        //Method to search in the Binary Tree Set
+        public void Search(T element)
+        {
+            // Declaring the current node as root
+            Node<T> current = root;
+            bool found = false;
+            while (current != null)
+            {
+                // Checking if the element to be searched is root
+                if (current.data.Equals(element))
+                {
+                    found = true;
+                    break;
+                }
+                else
+                {
+                    // Checking if the element to be searched is present in the left side of Binary Tree
+                    if (element.CompareTo(current.data) < 0)
+                    {
+                        current = current.Left;
+                    }
+                    // Checking if the element to be searched is present in the right side of Binary Tree
+                    else
+                    {
+                        current = current.Right;
+                    }
+                }
+            }
+            if (found)
+                Console.WriteLine("Element Found");
+            else
+                Console.WriteLine("Element Not Found");
         }
     }
 }
